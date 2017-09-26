@@ -1,4 +1,44 @@
 Thomas Baminger
 
-fork:
-    Jap
+pid_t fork(void):
+    Creates a new process. This process (child process) is an copy of the calling process (parent process) except some details.
+    If successful the function returns 0 and the process ID of the created child. Otherwise it returns -1 and no child process will
+    be created.
+
+    The function fails when the system doesn't have enough resources or the total number of processes is exceeded. It might fails aswell
+    if there is insufficent storage available.
+
+
+int stat(const char *restrict path, struct stat *restrict buf):
+    Collects information from a file at a specified path and writes it to the area pointed to by buf. stat() returns 0 upon success and -1 upon failure.
+
+    It fails when:
+        - Search permission is denied for a component of the path prefix.
+        - An error occured while reading from the file system.
+        - The length of a component of a pathname is longer than NAME_MAX.
+        - A component of path does not name an existing file or path is an empty string.
+        - The file size in bytes or the number of blocks allocated to the file or the file serial 
+          number cannot be represented correctly in the structure pointed to by buf.
+
+
+int kill(pid_t pid, int sig):
+    Sends a signal to a process or a group of processes specified by pid. The signal to be sent is specified by sig and has to be a specific number
+    from the list given in <signal.h> or 0. If it is 0 it won't send a signal but will check for errors, can be used for checking the pid. If successful
+    the function returns 0 otherwise -1 will be returned.
+
+    It fails when:
+        - The value of the sig argument is an invalid or unsupported signal number.
+        - The process does not have permission to send the signal to any receiving process
+        - No process or process group was found under the specified pid.
+
+
+
+void *mmap(void *addr, size_t len, int prot, int flags, int fildes, off_t off):
+    The function establishes a mapping between an address space of a process and a memory object. It is supported for the following memory objects:
+        - Regular files
+        - Shared memory objects
+        - Typed memory objects
+
+
+int fchmodat(int fd, const char *path, mode_t mode, int flag):
+    
